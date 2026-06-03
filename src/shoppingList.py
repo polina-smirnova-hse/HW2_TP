@@ -1,7 +1,7 @@
 from ingredient import Ingredient
 from recipe import Recipe
 class ShoppingList:
-    def __init__(self,):
+    def __init__(self):
         self._items = []
     def add_recipe(self, recipe: Recipe, portions: float):
         if portions <= 0:

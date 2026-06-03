@@ -3,6 +3,7 @@ sys.path.append("src")
 import pytest
 from ingredient import Ingredient
 from recipe import Recipe
+from shoppingList import ShoppingList
 
 def test_ingrCreate():
     ingredient = Ingredient("огурец", 100, "г")
@@ -89,3 +90,39 @@ def test_recipeScaleNegativeRatio():
     with pytest.raises(ValueError):
         recipe.scale(-1)
 
+def test_shoppingListAdd():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    shopList = ShoppingList()
+    shopList.add_recipe(recipe, 1.0)
+    listOfShops = shopList.get_list()
+    assert listOfShops[0].name == "вода"
+    assert listOfShops[1].name == "мука"
+    assert listOfShops[0].quantity == 1.0
+    assert listOfShops[1].quantity == 500.0
+def test_shoppingListNegativePortions():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    shopList = ShoppingList()
+    with pytest.raises(ValueError):
+        shopList.add_recipe(recipe, 0)
+def test_shoppingListRemove():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    shopList = ShoppingList()
+    shopList.add_recipe(recipe, 1.0)
+    shopList.remove_recipe("тесто")
+    listOfShops = shopList.get_list()
+    assert len(listOfShops) == 0
