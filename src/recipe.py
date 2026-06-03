@@ -7,7 +7,7 @@ class Recipe:
         hasIngr = False
         for a in self.ingredients:
             if a == ingredient:
-                hsdIngr = True
+                hasIngr = True
                 ingr = a
         if hasIngr:
             ingr.quantity = ingr.quantity + ingredient.quantity
@@ -28,7 +28,7 @@ class Recipe:
                 new.append(newIngr)
         return Recipe(self.title, new)
     def __len__(self):
-        return len(self.add_ingredient)
+        return len(self.ingredients)
     def __str__(self):
         s = ''
         for ingr in self.ingredients:
