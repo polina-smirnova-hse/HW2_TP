@@ -2,6 +2,7 @@ import sys
 sys.path.append("src")
 import pytest
 from ingredient import Ingredient
+from recipe import Recipe
 
 def test_ingrCreate():
     ingredient = Ingredient("огурец", 100, "г")
@@ -23,4 +24,68 @@ def test_eqq3():
     ingredient1 = Ingredient("помидор", 450, "г")
     ingredient2 = Ingredient("помидор", 450, "кг")
     assert ingredient1 != ingredient2
-    
+
+def test_recipeCreate():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    assert recipe.title == "тесто"
+    assert recipe.ingredients == ingr
+def test_recipeAdd():
+    ingr = []
+    ingrAssert = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingrAssert.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    ingrAssert.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    ingr3 = Ingredient("соль", 5, "г")
+    recipe.add_ingredient(ingr3)
+    ingrAssert.append(ingr3)
+    assert recipe.ingredients == ingrAssert
+    assert len(recipe.ingredients) == 3
+def test_recipeAddRepeat():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    ingr3 = Ingredient("мука", 600, "г")
+    recipe.add_ingredient(ingr3)
+    assert recipe.ingredients[0].quantity == 1100
+    assert recipe.ingredients == ingr
+def test_recipeScale():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    new = recipe.scale(3.0)
+    assert new is not recipe
+def test_recipeScaleIncrease():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    new = recipe.scale(3.0)
+    assert new.ingredients[0].quantity == 1500
+    assert new.ingredients[1].quantity == 3
+def test_recipeScaleNegativeRatio():
+    ingr = []
+    ingr1 = Ingredient("мука", 500, "г")
+    ingr.append(ingr1)
+    ingr2 = Ingredient("вода", 1, "л")
+    ingr.append(ingr2)
+    recipe = Recipe("тесто", ingr)
+    with pytest.raises(ValueError):
+        recipe.scale(-1)
+
