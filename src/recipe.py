@@ -20,9 +20,13 @@ class Recipe:
         else:
             return False
     def scale(self, ratio: float):
+        new = []
         if self.is_valid_ratio(ratio):
             for a in self.ingredients:
-                a.quantity = a.quantity * ratio
+                newQuant = a.quantity * ratio
+                newIngr = Ingredient(a.name, newQuant, a.unit)
+                new.append(newIngr)
+        return Recipe(self.title, new)
     def __len__(self):
         return len(self.add_ingredient)
     def __str__(self):
