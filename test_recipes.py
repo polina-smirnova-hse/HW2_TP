@@ -9,18 +9,18 @@ def test_ingrCreate():
     assert ingredient.name == "огурец"
     assert ingredient.quantity == 100
     assert ingredient.unit == "г"
-def test_strr():
+def test_ingrStr():
     ingredient = Ingredient("помидор", 250, "кг")
     assert str(ingredient) == "помидор: 250.0 кг"
-def test_eqq1():
+def test_ingrEqDifferentQuantity():
     ingredient1 = Ingredient("помидор", 250, "кг")
     ingredient2 = Ingredient("помидор", 450, "кг")
     assert ingredient1 == ingredient2
-def test_eqq2():
+def test_ingrEqDifferentNames():
     ingredient1 = Ingredient("огурец", 450, "кг")
     ingredient2 = Ingredient("помидор", 450, "кг")
     assert ingredient1 != ingredient2
-def test_eqq3():
+def test_ingrEqDifferentUnits():
     ingredient1 = Ingredient("помидор", 450, "г")
     ingredient2 = Ingredient("помидор", 450, "кг")
     assert ingredient1 != ingredient2
