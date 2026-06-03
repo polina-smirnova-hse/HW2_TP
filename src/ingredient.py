@@ -13,10 +13,11 @@ class Ingredient:
         if x > 0:
             x = float(x)
             self._quantity = x
-
-    
-
-
-
+    def __str__(self):
+        return f"{self.name}: {self._quantity} {self.unit}"
+    def __repr__(self):
+        return f"Ingredient('{self.name}', {self._quantity}, '{self.unit}')"
+    def __eq__(self, other):
+        return self.name == other.name and self.unit == other.unit
 
 
