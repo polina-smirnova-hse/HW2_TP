@@ -26,7 +26,9 @@ class Recipe:
                 newQuant = a.quantity * ratio
                 newIngr = Ingredient(a.name, newQuant, a.unit)
                 new.append(newIngr)
-        return Recipe(self.title, new)
+            return Recipe(self.title, new)
+        else:
+            raise ValueError()
     def __len__(self):
         return len(self.ingredients)
     def __str__(self):
