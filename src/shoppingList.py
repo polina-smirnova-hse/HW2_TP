@@ -10,9 +10,11 @@ class ShoppingList:
         for ingr in recipe_portions.ingredients:
             self._items.append((ingr, recipe_portions.title))
     def remove_recipe(self, title:str):
+        new_list = []
         for ingr in self._items:
-            if ingr[1] == title:
-                self._items.remove(ingr)
+            if ingr[1] != title:
+                new_list.append(ingr)
+        self._items = new_list
     def get_list(self):
         shop = {}
         for ingredient, titles in self._items:
